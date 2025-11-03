@@ -72,13 +72,15 @@
         `rel=${rel}&` +
         `playlist=${loop === '1' ? videoId : ''}`;
       
-      // Create and insert iframe
+      // Create and insert iframe with proper referrerpolicy
       const iframe = document.createElement('iframe');
       iframe.src = embedUrl;
       iframe.width = '100%';
       iframe.height = '100%';
       iframe.frameBorder = '0';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.title = 'YouTube video player';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
       iframe.allowFullscreen = true;
       
       document.getElementById('player').appendChild(iframe);
