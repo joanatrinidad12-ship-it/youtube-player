@@ -1,93 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="referrer" content="no-referrer-when-downgrade">
-  <title>YouTube Player</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      background: #000;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-    }
-    
-    #player-container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    #player {
-      width: 100%;
-      height: 100%;
-    }
-    
-    #error-message {
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      display: none;
-    }
-    
-    #error-message.show {
-      display: block;
-    }
-  </style>
-</head>
-<body>
-  <div id="player-container">
-    <div id="player"></div>
-    <div id="error-message">
-      <h2>No video ID provided</h2>
-      <p>Please add ?vid=VIDEO_ID to the URL</p>
-    </div>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>YouTube Player</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-  <script>
-    // Get video ID from URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const videoId = urlParams.get('vid');
-    const autoplay = urlParams.get('autoplay') || '0';
-    const loop = urlParams.get('loop') || '0';
-    const mute = urlParams.get('mute') || '0';
-    const controls = urlParams.get('controls') || '1';
-    const rel = urlParams.get('rel') || '0';
-    
-    if (videoId) {
-      // Build YouTube embed URL with parameters
-      const embedUrl = `https://www.youtube.com/embed/${videoId}?` + 
-        `autoplay=${autoplay}&` +
-        `loop=${loop}&` +
-        `mute=${mute}&` +
-        `controls=${controls}&` +
-        `rel=${rel}&` +
-        `playlist=${loop === '1' ? videoId : ''}`;
-      
-      // Create and insert iframe with proper referrerpolicy
-      const iframe = document.createElement('iframe');
-      iframe.src = embedUrl;
-      iframe.width = '100%';
-      iframe.height = '100%';
-      iframe.frameBorder = '0';
-      iframe.title = 'YouTube video player';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      iframe.referrerPolicy = 'no-referrer-when-downgrade';
-      iframe.allowFullscreen = true;
-      
-      document.getElementById('player').appendChild(iframe);
-    } else {
-      // Show error if no video ID
-      document.getElementById('error-message').classList.add('show');
-    }
-  </script>
-</body>
+      body {
+        background: #000;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+      }
+
+      #player-container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #player {
+        width: 100%;
+        height: 100%;
+      }
+
+      #error-message {
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+        display: none;
+      }
+
+      #error-message.show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="player-container">
+      <div id="player"></div>
+      <div id="error-message">
+        <h2>No video ID provided</h2>
+        <p>Please add ?vid=VIDEO_ID to the URL</p>
+      </div>
+    </div>
+
+    <script>
+      // Get video ID from URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      let videoId = urlParams.get("vid");
+      // Clean and validate video ID (remove any whitespace or special characters)
+      if (videoId) {
+        videoId = videoId.trim();
+      }
+      const autoplay = urlParams.get("autoplay") || "0";
+      const loop = urlParams.get("loop") || "0";
+      const mute = urlParams.get("mute") || "0";
+      const controls = urlParams.get("controls") || "1";
+      const rel = urlParams.get("rel") || "0";
+
+      if (videoId) {
+        // Build YouTube embed URL with parameters (matching test.html format)
+        let embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+        // Only add parameters if they differ from defaults
+        const params = [];
+        if (autoplay === "1") params.push("autoplay=1");
+        if (loop === "1") {
+          params.push("loop=1");
+          params.push(`playlist=${videoId}`); // Required for loop to work
+        }
+        if (mute === "1") params.push("mute=1");
+        if (controls === "0") params.push("controls=0");
+        if (rel === "0") params.push("rel=0");
+
+        // Add query string only if there are parameters
+        if (params.length > 0) {
+          embedUrl += "?" + params.join("&");
+        }
+
+        // Create and insert iframe with proper referrerpolicy (matching test.html exactly)
+        const iframe = document.createElement("iframe");
+        iframe.src = embedUrl;
+        iframe.width = "100%";
+        iframe.height = "100%";
+        iframe.frameBorder = "0";
+        iframe.title = "YouTube video player";
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.allowFullscreen = true;
+
+        document.getElementById("player").appendChild(iframe);
+      } else {
+        // Show error if no video ID
+        document.getElementById("error-message").classList.add("show");
+      }
+    </script>
+  </body>
 </html>
