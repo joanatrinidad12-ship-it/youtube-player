@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>YouTube Test</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #000;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+
+      .test-container {
+        background: #222;
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      h2 {
+        margin-top: 0;
+        color: #fff;
+      }
+
+      iframe {
+        width: 100%;
+        max-width: 800px;
+        height: 450px;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test-container">
+      <h2>Test 1: Direct Hardcoded Embed</h2>
+      <iframe
+        src="https://www.youtube.com/embed/jNQXAC9IVRw"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+
+    <div class="test-container">
+      <h2>Test 2: Baby Shark</h2>
+      <iframe
+        src="https://www.youtube.com/embed/XqZsoesa55w"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+
+    <div class="test-container">
+      <h2>Test 3: Your Video ID</h2>
+      <iframe
+        src="https://www.youtube.com/embed/j73O6ZIROyo"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+
+    <div class="test-container">
+      <h2>Test 4: Using youtube-nocookie.com</h2>
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/jNQXAC9IVRw"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+  </body>
+</html>
